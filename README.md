@@ -15,3 +15,9 @@ Dimensionality-reduction algorithms
  - [PCA example](https://setosa.io/ev/principal-component-analysis/)
 
 Sursa rețete: [www.e-retete.ro](https://www.e-retete.ro/)
+
+-----------
+ - Cosmin Lupu
+ - Oica Andra
+ - Ervin Maftei
+ - Volosincu Bogdan
