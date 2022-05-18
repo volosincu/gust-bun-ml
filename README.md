@@ -17,7 +17,27 @@ Dimensionality-reduction algorithms
 Sursa rețete: [www.e-retete.ro](https://www.e-retete.ro/)
 
 -----------
+Team:
  - Cosmin Lupu
  - Oica Andra
  - Ervin Maftei
  - Volosincu Bogdan
+
+-----------
+To do:
+- Add recipes to training data file (Ervin)
+- Add recipes to test data file (Ervin)
+- N-gram model (tokens, bigrams...) (Bogdan+Andra)
+```
+Methods:
+1.
+-- Create bigram probability table
+-- Create a routine for validating recipe generation
+2. (possible future idea)
+-- Training > Analyzing weights based on the bigram model
+```
+- Generate data evaluation matrix (Cosmin)
+- Normalize better tokenization (START-END of recipes, /n...) (Bogdan)
+- Word-based vs Character-based (documentation, at least)
+- UI (Andra)
+
