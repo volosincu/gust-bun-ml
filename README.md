@@ -42,7 +42,7 @@ Methods:
 - UI (Andra)
 
 -----------
-Steps to make your project work
+## Steps to make your project work
 
 Set up virtual environment (Once)
 -- in the project folder
