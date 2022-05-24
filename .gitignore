@@ -1,2 +1,4 @@
 .history*
 training_checkpoints*
+__pycache__
+db.sqlite3

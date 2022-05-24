@@ -41,3 +41,28 @@ Methods:
 - Word-based vs Character-based (documentation, at least)
 - UI (Andra)
 
+-----------
+Steps to make your project work
+
+Set up virtual environment (Once)
+-- in the project folder
+```
+python -m venv ./env
+```
+Activate it (Each time, before running project)
+-- preferably ran through git bash
+```
+source env/Scripts/activate
+```
+To deactivate it
+```
+deactivate
+```
+Install python libraries with pip (When needed, before running project)
+```
+pip install -r req.txt
+```
+Run django project at *http://127.0.0.1:8000/* (Each time)
+```
+python manage.py runserver
+```
