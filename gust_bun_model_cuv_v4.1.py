@@ -115,6 +115,10 @@ for seq in sequences.take(1):
 for seq in sequences.take(5):
   withDebug(text_from_ids(seq).numpy())
 
+TEXT_RETETE = TEXT_RETETE.replace("\n", " <LINE> ")
+print(TEXT_RETETE[:47])
+print(TEXT_RETETE.split()[:13])
+
 from collections import Counter
 def wordCounter(text):
   count = Counter()
@@ -123,6 +127,8 @@ def wordCounter(text):
     if _word.startswith('('):
       word = _word[1:]
     elif _word.endswith(')'):
+      word = _word[:len(_word)-1]
+    elif _word.endswith(','):
       word = _word[:len(_word)-1]
     else:
       word = _word
@@ -135,7 +141,9 @@ counter = wordCounter(textVect)
 print(f'Nr de cuvinte din datasetul de antrenament: {len(counter)}')
 x = {1: 2, 3: 4, 4: 3, 2: 1, 0: 0}
 
-Counter(textVect).most_common(2)
+
+# %7y# is newline encoding
+Counter(textVect).most_common(5)
 
 """Se pregateste setul de date pt tokenizare (sub forma de id-uri)"""
 
@@ -155,6 +163,8 @@ wordIndex = tknz.word_index
 
 # acelasi text dar in loc de cuvinte avem id-uri
 wordSequences = tknz.texts_to_sequences(txtv)
+
+cuvinteUnice
 
 print(txtv[230:240])
 print(wordSequences[230:240])
@@ -203,10 +213,6 @@ https://www.tensorflow.org/guide/keras/sequential_model
 # #loss = tf.losses.SparseCategoricalCrossentropy(from_logits=True)
 # optim = tf.keras.optimizers.Adam(lr=0.001)
 # model.compile(loss=loss, optimizer=optim, metrics=['accuracy'])
-
-
-
-
 # model.fit(dataset, epochs=1)
 
 ids_dataset = tf.data.Dataset.from_tensor_slices(wordSequencesPadded)
@@ -218,7 +224,6 @@ sequences = ids_dataset.batch(seq_length+1, drop_remainder=True)
 #   print(sq)
 #   for s in sq[0]:
 #     print(s)
-
 
 def split_input_target(sequence):
     input_text = sequence[:-1]
@@ -240,19 +245,22 @@ model.compile(optimizer = tf.keras.optimizers.Adam(),
 model.fit(dataset, epochs=EPOCHS)
 
 example_batch_predictions = model(wordSequencesPadded[:1])
+example_batch_predictions.shape
+
+# reshape pt conversia în cuvinte
+example_batch_predictions = model(wordSequencesPadded[:1])
+y_shape = example_batch_predictions.shape[2] # eq with alfabet_size + 1
+
 # print(example_batch_predictions.shape, "# (batch_size, sequence_length, vocab_size)")
 # print(tf.squeeze(example_batch_predictions))
 
-preds = tf.reshape(example_batch_predictions, [197*2])
+preds = tf.reshape(example_batch_predictions, [maxPad * y_shape])
 print(preds[:10])
 
 # temperature = 1.0
-
 # # predicted_logits = predicted_logits[:, -1]
 
-
 # print(predicted_logits)
-
 # predicted_ids = tf.random.categorical(predicted_logits, num_samples=1)
 
 # print(predicted_ids)
@@ -280,7 +288,7 @@ np.reshape([89, 0], (1, 2))
 
 # Exemplu 
 v = model_gen_reteta(wordSequencesPadded[:1])
-rv = np.reshape(v, (1, 2))
+rv = np.reshape(v, (1, maxPad))
 print(f'Reshape id for next call: {rv}')
 v = model_gen_reteta(rv)
 v
@@ -291,8 +299,9 @@ start_reteta_id
 
 start = time.time()
 result = [start_reteta_id]
+next_word_id = start_reteta
 
-for n in range(250):
+for n in range(50):
   nw = np.reshape(next_word_id, (1, 2))
   next_word_id = model_gen_reteta(nw)
   cuvant = decodeIds(next_word_id)
@@ -302,7 +311,11 @@ for n in range(250):
   result.append(cuvant)
 
 end = time.time()
-print(" ".join(result))
+reteta_creata = " ".join(result)
+print(reteta_creata)
+print("----------------------------")
+reteta_creata = reteta_creata.replace("line", "\n")
+print(reteta_creata)
 print('\nRun time:', end - start)
 
 """# Poftă bună"""
