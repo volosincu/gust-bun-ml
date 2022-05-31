@@ -57,7 +57,7 @@ class GradientTraining(TextGenModel):
       return {'loss': loss}
 
 # Read, then decode for py2 compat.
-TEXT_RETETE = open('/rețete-vegetariene.txt', 'rb').read().decode(encoding='utf-8')
+TEXT_RETETE = open(r'ml\rețete-vegetariene.txt', 'rb').read().decode(encoding='utf-8')
 # length of TEXT_RETETE is the number of characters in it
 withDebug(f'Length of text: {len(TEXT_RETETE)} characters')
 
@@ -321,3 +321,6 @@ print('\nRun time:', end - start)
 """# Poftă bună"""
 
 print("delicios! ")
+
+def get_new_recipe():
+  return reteta_creata
